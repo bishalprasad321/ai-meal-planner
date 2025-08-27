@@ -3,8 +3,8 @@ package com.bishal.mealplanner.ui.home
 import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -33,33 +33,32 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.bishal.mealplanner.utils.saveBitmapToCache
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController
 ) {
+    val context = LocalContext.current
+
     // Launcher Definition
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicturePreview()
-    ) { bitmap ->
-        if (bitmap != null) {
-            // TODO: Process the captured image
-            Log.d("CameraLauncher", "Captured image: $bitmap")
+    ) { bitmap: Bitmap? ->
+        bitmap?.let {
+            // Save to temp file + convert to Uri
+            val uri = saveBitmapToCache(context, it)
+            navController.navigate("result/${Uri.encode(uri.toString())}")
         }
     }
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
-        if (uri != null) {
-            // TODO: Process the selected image
-            Log.d("PhotoPicker", "Selected image: $uri")
-        } else {
-            Log.d("PhotoPicker", "No media selected")
+        uri?.let{
+            navController.navigate("result/${Uri.encode(it.toString())}")
         }
     }
-
-    val context = LocalContext.current
 
     // Permission Launcher
     val requestCameraPermissionLauncher = rememberLauncherForActivityResult(

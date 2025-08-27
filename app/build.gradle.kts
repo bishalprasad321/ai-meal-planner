@@ -76,6 +76,10 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    // Coil - Image
+    implementation(libs.io.coil.kt.coil3.compose)
+    implementation(libs.io.coil.kt.coil3.network.okhttp)
+
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
