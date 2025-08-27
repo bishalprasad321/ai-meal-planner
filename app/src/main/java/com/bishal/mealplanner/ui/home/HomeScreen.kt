@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.bishal.mealplanner.utils.saveBitmapToCache
+import com.bishal.mealplanner.ui.components.saveBitmapToCache
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

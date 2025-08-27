@@ -1,4 +1,4 @@
-package com.bishal.mealplanner.utils
+package com.bishal.mealplanner.ui.components
 
 import android.content.Context
 import android.graphics.Bitmap
